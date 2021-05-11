@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {StyleSheet, Text, View, TextInput, Button} from 'react-native';
+import {StyleSheet, Text, View, TextInput, Button,ScrollView} from 'react-native';
 
 export default function App(){
   const [goal, setGoal]= useState('');
@@ -9,16 +9,26 @@ export default function App(){
     setGoal(userGoal)
   }
   const addGoalHandler = () => {
-    setCourseGoals([...courseGoals,goal])
+    // This will work but not always
+    // setCourseGoals([...courseGoals,goal])
+    setCourseGoals(currentCourseGoals => [...courseGoals,goal])
     console.log(courseGoals)
   }
   return(
     <View style={styles.container}>     
       <View style={styles.InputContainer}>
-        <TextInput placeholder="Course Goals" style={styles.goalText} onChangeText={goalInputHandler} value={goal}/>
-        <Button title="Add" style={styles.addBtn} onPress={addGoalHandler}/>
+        <TextInput 
+        placeholder="Course Goals" 
+        style={styles.goalText} 
+        onChangeText={goalInputHandler} 
+        value={goal}/>
+        <Button title="Add" 
+        style={styles.addBtn} 
+        onPress={addGoalHandler}/>
       </View>
-      <View></View>
+      <ScrollView>
+        {courseGoals.map(goal=><View style={styles.listText} key={Math.random()}><Text>{goal}</Text></View>)}
+      </ScrollView>
     </View>
   );
 }
@@ -40,5 +50,12 @@ const styles = StyleSheet.create({
     width:'80%'
   },
   addBtn:{
+  },
+  listText:{
+    marginVertical:'0.1em',
+    marginHorizontal:'0.5em',
+    padding:'1em',
+    backgroundColor:'lightgray',
+    fontSize:'1.2em'
   }
 });
