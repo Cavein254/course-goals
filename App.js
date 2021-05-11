@@ -11,7 +11,7 @@ export default function App(){
   const addGoalHandler = () => {
     // This will work but not always
     // setCourseGoals([...courseGoals,goal])
-    setCourseGoals(currentCourseGoals => [...courseGoals,goal])
+    setCourseGoals(currentCourseGoals => [...courseGoals,{key:Math.random().toLocaleString(),value:goal}])
     console.log(courseGoals)
   }
   return(
@@ -30,7 +30,7 @@ export default function App(){
         data={courseGoals}
         renderItem = {itemData => (
           <View style={styles.listText}>
-            <Text>{itemData.item}</Text>
+            <Text>{itemData.item.value}</Text>
           </View>
         )}
       />
