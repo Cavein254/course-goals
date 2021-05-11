@@ -4,13 +4,8 @@ import GoalItem from './components/GoalItem'
 import GoalInput from './components/GoalInput'
 
 export default function App() {
-  const [goal, setGoal] = useState('');
   const [courseGoals, setCourseGoals] = useState([]);
-
-  const goalInputHandler = (userGoal) => {
-    setGoal(userGoal)
-  }
-  const addGoalHandler = () => {
+  const addGoalHandler = (goal) => {
     // This will work but not always
     // setCourseGoals([...courseGoals,goal])
     setCourseGoals(currentCourseGoals => [...courseGoals, { key: Math.random().toLocaleString(), value: goal }])
@@ -18,9 +13,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <GoalInput
-        addGoalHandler={addGoalHandler}
-        goalInputHandler={goalInputHandler}
-        goal={goal} />
+        addGoalHandler={addGoalHandler} />
       <FlatList
         data={courseGoals}
         renderItem={itemData =>
