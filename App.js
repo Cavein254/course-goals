@@ -10,6 +10,12 @@ export default function App() {
     // setCourseGoals([...courseGoals,goal])
     setCourseGoals(currentCourseGoals => [...courseGoals, { key: Math.random().toLocaleString(), value: goal }])
   }
+  const onDelete = goalKey => {
+    console.log(goalKey)
+    setCourseGoals(currentCourseGoals => {
+      return currentCourseGoals.filter((key) => key !== goalKey)
+    })
+  }
   return (
     <View style={styles.container}>
       <GoalInput
@@ -17,7 +23,7 @@ export default function App() {
       <FlatList
         data={courseGoals}
         renderItem={itemData =>
-          <GoalItem title={itemData.item.value} />
+          <GoalItem title={itemData.item.value} onDelete={onDelete} />
         }
       />
     </View>
